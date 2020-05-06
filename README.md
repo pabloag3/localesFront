@@ -1,0 +1,1 @@
+Aplicacion movil para gestion de locales
