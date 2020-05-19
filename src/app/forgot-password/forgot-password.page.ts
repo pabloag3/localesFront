@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-forgot-password',
@@ -7,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ForgotPasswordPage implements OnInit {
 
-  constructor() { }
+  formRecuperarContrasenha: FormGroup;
+
+  constructor(
+    public formBuilder: FormBuilder
+  ) { }
 
   ngOnInit() {
+    this.formRecuperarContrasenha = this.formBuilder.group({
+      email:  new FormControl('', [Validators.required, Validators.email]),
+    })
+  }
+
+  recuperarContrasenha(){
+    console.log("Apreto el boton de enviar correo para recuperar contrasenha.");
   }
 
 }

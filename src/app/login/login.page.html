@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Log In</ion-title>
+    <ion-title>Acceder</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -11,17 +11,17 @@
   <form [formGroup]="formLogin" (ngSubmit)="login()" >
     <ion-item lines="full">
       <ion-label position="floating">Email</ion-label>
-      <ion-input formControlName="email" type="text" placeholder="email" required></ion-input>
+      <ion-input formControlName="email" type="text" required></ion-input>
     </ion-item>
 
     <ion-item lines="full">
       <ion-label position="floating">Password</ion-label>
-      <ion-input formControlName="password" type="password" placeholder="contraseña" required></ion-input>
+      <ion-input formControlName="password" type="password" required></ion-input>
     </ion-item>
 
     <ion-row>
       <ion-col>
-        <ion-button type="submit" color="danger" expand="block">Sign In</ion-button>
+        <ion-button block type="submit" [disabled]="!formLogin.valid" color="danger" expand="block">Sign In</ion-button>
         <a [routerLink]="['/forgot-password']" class="small-text">Forgot Password?</a>
       </ion-col>
     </ion-row>
