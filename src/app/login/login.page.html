@@ -8,15 +8,15 @@
 </ion-header>
 
 <ion-content>
-  <form>
+  <form [formGroup]="formLogin" (ngSubmit)="login()" >
     <ion-item lines="full">
       <ion-label position="floating">Email</ion-label>
-      <ion-input type="text" required></ion-input>
+      <ion-input formControlName="email" type="text" placeholder="email" required></ion-input>
     </ion-item>
 
     <ion-item lines="full">
       <ion-label position="floating">Password</ion-label>
-      <ion-input type="password" required></ion-input>
+      <ion-input formControlName="password" type="password" placeholder="contraseña" required></ion-input>
     </ion-item>
 
     <ion-row>
