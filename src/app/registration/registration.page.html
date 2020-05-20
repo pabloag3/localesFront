@@ -11,12 +11,12 @@
   <form [formGroup]="formRegistrar" (ngSubmit)="registrar()" >
     <ion-item lines="full">
       <ion-label position="floating">Nombres</ion-label>
-      <ion-input formControlName="nombres" type="text" required></ion-input>
+      <ion-input formControlName="first_name" type="text" required></ion-input>
     </ion-item>
 
     <ion-item lines="full">
       <ion-label position="floating">Apellidos</ion-label>
-      <ion-input formControlName="apellidos" type="text" required></ion-input>
+      <ion-input formControlName="last_name" type="text" required></ion-input>
     </ion-item>
 
     <ion-item lines="full">
@@ -31,7 +31,7 @@
 
     <ion-row>
       <ion-col>
-        <ion-button type="submit" [disabled]="!formRegistrar.valid" color="danger" expand="block">Sign Up</ion-button>
+        <ion-button type="submit" [disabled]="!formRegistrar.valid" color="danger" expand="block">Registrarse</ion-button>
       </ion-col>
     </ion-row>
   </form>
