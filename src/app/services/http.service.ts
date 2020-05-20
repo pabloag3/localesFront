@@ -10,12 +10,11 @@ export class HttpService {
   constructor(private http: HttpClient) {}
 
   post(serviceName: string, data: any) {
-    const headers = new HttpHeaders();
-    const options = { headers: headers, withCredintials: false };
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    const options = { headers: headers };
     const url = environment.apiUrl + serviceName;
-    console.log("llega al service");
-    console.log(JSON.stringify(data));
-
+    // console.log(JSON.stringify(data));
+    // console.log(url);
     return this.http.post(url, JSON.stringify(data), options);
   }
 }

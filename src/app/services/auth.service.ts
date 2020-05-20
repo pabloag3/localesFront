@@ -16,11 +16,11 @@ export class AuthService {
   ) { }
 
   login(postData: any): Observable<any> {
-    return this.httpService.post('login', postData);
+    return this.httpService.post('login/', postData);
   }
 
-  signup(postData: any): Observable<any> {
-    return this.httpService.post('signup', postData);
+  registrar_usuario(postData: any): Observable<any> {
+    return this.httpService.post('profile/', postData);
   }
 
   logout() {
