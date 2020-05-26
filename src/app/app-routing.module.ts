@@ -22,7 +22,11 @@ const routes: Routes = [
   {
     path: 'forgot-password',
     loadChildren: () => import('./forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule)
+  },  {
+    path: 'registrar-empresas',
+    loadChildren: () => import('./empresas/registrar-empresas/registrar-empresas.module').then( m => m.RegistrarEmpresasPageModule)
   },
+
 ];
 
 @NgModule({
