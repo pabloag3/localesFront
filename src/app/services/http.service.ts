@@ -17,4 +17,13 @@ export class HttpService {
     // console.log(url);
     return this.http.post(url, JSON.stringify(data), options);
   }
+
+  get(serviceName: string) {
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    const options = { headers: headers };
+    const url = environment.apiUrl + serviceName;
+
+    return this.http.get(url, options);
+  }
+
 }
