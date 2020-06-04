@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
-import { StorageService } from '../services/storage.service';;
+import { StorageService } from '../services/storage.service';
 import { AuthConstants } from '../config/auth-constants';
 
 @Component({
