@@ -26,6 +26,26 @@ const routes: Routes = [
     path: 'registrar-empresas',
     loadChildren: () => import('./empresas/registrar-empresas/registrar-empresas.module').then( m => m.RegistrarEmpresasPageModule)
   },
+  {
+    path: 'editar-empresas',
+    loadChildren: () => import('./empresas/editar-empresas/editar-empresas.module').then( m => m.EditarEmpresasPageModule)
+  },
+  {
+    path: 'listar-empresas',
+    loadChildren: () => import('./empresas/listar-empresas/listar-empresas.module').then( m => m.ListarEmpresasPageModule)
+  },
+  {
+    path: 'ver-empresa',
+    loadChildren: () => import('./empresas/ver-empresa/ver-empresa.module').then( m => m.VerEmpresaPageModule)
+  },
+  {
+    path: 'registrar-medidas',
+    loadChildren: () => import('./empresas/registrar-medidas/registrar-medidas.module').then( m => m.RegistrarMedidasPageModule)
+  },
+  {
+    path: 'editar-medidas',
+    loadChildren: () => import('./empresas/editar-medidas/editar-medidas.module').then( m => m.EditarMedidasPageModule)
+  },
 
 ];
 
