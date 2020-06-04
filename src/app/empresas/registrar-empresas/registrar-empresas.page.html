@@ -6,7 +6,7 @@
 
 
 <ion-content>
-  <form [formGroup]="formRegistrarEmpresa" (ngSubmit)="registrar_empresa()">
+  <form [formGroup]="formRegistrarEmpresa" (ngSubmit)="registrarEmpresa()">
     <ion-item lines="full">
       <ion-label position="floating">Descripcion</ion-label>
       <ion-input formControlName="descripcion" type="text" required></ion-input>
@@ -29,11 +29,14 @@
 
     <ion-item lines="full">
       <ion-label position="floating">Clasificacion de Empresa</ion-label>
-      <ion-select formControlName="cod_clasificacion_empresa" required></ion-select>
+      <ion-select formControlName="id_clasificacion_empresa" ok-text="Seleccionar" cancel-text="Cancelar">
+        <ion-select-option *ngFor="let clasificacion of clasificacionEmpresas$" value="{{clasificacion.id_clasificacion_empresa}}">{{clasificacion.descripcion}}</ion-select-option>
+      </ion-select>
     </ion-item>
+
     <ion-row>
       <ion-col>
-        <ion-button type="submit" [disabled]="!formRegistrar.valid" color="danger" expand="block">Guardar</ion-button>
+        <ion-button type="submit" [disabled]="!formRegistrarEmpresa.valid" color="danger" expand="block">Guardar</ion-button>
       </ion-col>
     </ion-row>
 
