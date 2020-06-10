@@ -10,6 +10,9 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 
+import { VerEmpresaResolve } from './empresas/ver-empresa/ver-empresa.resolve';
+import { EditarEmpresaResolve } from './empresas/editar-empresas/editar-empresas.resolve';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -17,6 +20,8 @@ import { HttpClientModule } from '@angular/common/http';
   providers: [
     StatusBar,
     SplashScreen,
+    VerEmpresaResolve,
+    EditarEmpresaResolve,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

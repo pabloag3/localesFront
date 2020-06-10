@@ -30,7 +30,7 @@ export class HttpService {
 
     this.storageService.get(AuthConstants.AUTH)
       .then((value) => {
-        console.log("valor del promise: " + value); // ya captura bien el valor del token
+        // console.log("valor del promise: " + value); // ya captura bien el valor del token
         if (value !== null) {
           headers = headers.append('Authorization', 'Token ' + value);
         }
@@ -38,10 +38,17 @@ export class HttpService {
       });
 
 
-    console.log(headers);
+    // console.log(headers);
     const options = { headers: headers };
     const url = environment.apiUrl + serviceName;
     return this.http.get(url, options);
+  }
+
+  put(serviceName: string, data: any) {
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    const options = { headers: headers };
+    const url = environment.apiUrl + serviceName;
+    return this.http.put(url, JSON.stringify(data), options);
   }
 
 }
