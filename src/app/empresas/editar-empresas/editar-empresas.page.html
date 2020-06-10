@@ -32,15 +32,15 @@
     </ion-item>
 
     <ion-item lines="full">
-      <ion-label position="floating">Clasificacion de Empresa</ion-label>
-      <ion-select [(ngModel)]="selectedIdCategoria" [ngModelOptions]="{standalone: true}" ok-text="Seleccionar" cancel-text="Cancelar">
+      <ion-label position="stacked">Clasificacion de Empresa</ion-label>
+      <ion-select formControlName="id_clasificacion_empresa" [(ngModel)]="selectedIdCategoria" ok-text="Seleccionar" cancel-text="Cancelar">
         <ion-select-option [value]="clasificacion.id_clasificacion_empresa" *ngFor="let clasificacion of clasificacionEmpresas$">{{clasificacion.descripcion}}</ion-select-option>
       </ion-select>
     </ion-item>
 
     <ion-row>
       <ion-col>
-        <ion-button type="submit" [disabled]="!formEditarEmpresa.valid" color="danger" expand="block">Editar</ion-button>
+        <ion-button type="submit" color="danger" expand="block">Editar</ion-button>
       </ion-col>
     </ion-row>
 

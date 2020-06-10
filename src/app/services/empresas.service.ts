@@ -24,7 +24,7 @@ export class EmpresasService {
   }
 
   editarEmpresa(putData: any): Observable<any> {
-    return this.httpService.put('empresas/' + putData.id_empresa, putData);
+    return this.httpService.put('empresas/' + putData.id_empresa + '/', putData);
   }
 
 }

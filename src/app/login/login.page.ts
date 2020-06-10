@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
-import { StorageService } from '../services/storage.service';
+import { LocalStorageService } from '../services/local-storage.service';
 import { AuthConstants } from '../config/auth-constants';
 
 @Component({
@@ -16,7 +16,7 @@ export class LoginPage implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private storageService: StorageService
+    private localStorageService: LocalStorageService
   ) { }
 
   ngOnInit() {
@@ -37,9 +37,7 @@ export class LoginPage implements OnInit {
 
     this.authService.login(credenciales).subscribe(
       (data: any) => {
-        // console.log("token de acceso: " + data.token);
-        this.storageService.store(AuthConstants.AUTH, data.token);
-        // console.log(this.storageService.get(AuthConstants.AUTH));
+        this.localStorageService.store(AuthConstants.AUTH, data.token);
       },
       (error: any) => {
         console.log(error.message);
