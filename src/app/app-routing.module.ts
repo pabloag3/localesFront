@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { EditarEmpresaResolve } from './empresas/editar-empresas/editar-empresas.resolve';
+import { VerEmpresaResolve } from './empresas/ver-empresa/ver-empresa.resolve';
 
 const routes: Routes = [
   {
@@ -22,21 +24,28 @@ const routes: Routes = [
   {
     path: 'forgot-password',
     loadChildren: () => import('./forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule)
-  },  {
+  },
+  {
     path: 'registrar-empresas',
     loadChildren: () => import('./empresas/registrar-empresas/registrar-empresas.module').then( m => m.RegistrarEmpresasPageModule)
   },
   {
-    path: 'editar-empresas',
-    loadChildren: () => import('./empresas/editar-empresas/editar-empresas.module').then( m => m.EditarEmpresasPageModule)
+    path: 'editar-empresas/:dataId',
+    loadChildren: () => import('./empresas/editar-empresas/editar-empresas.module').then( m => m.EditarEmpresasPageModule),
+    resolve: {
+      empresa: EditarEmpresaResolve
+    }
   },
   {
     path: 'listar-empresas',
     loadChildren: () => import('./empresas/listar-empresas/listar-empresas.module').then( m => m.ListarEmpresasPageModule)
   },
   {
-    path: 'ver-empresa',
-    loadChildren: () => import('./empresas/ver-empresa/ver-empresa.module').then( m => m.VerEmpresaPageModule)
+    path: 'ver-empresa/:dataId',
+    loadChildren: () => import('./empresas/ver-empresa/ver-empresa.module').then( m => m.VerEmpresaPageModule),
+    resolve: {
+      empresa: VerEmpresaResolve
+    }
   },
   {
     path: 'registrar-medidas',

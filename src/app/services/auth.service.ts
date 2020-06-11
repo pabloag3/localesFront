@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { HttpService } from './http.service';
-import { StorageService } from './storage.service';
+import { LocalStorageService } from '../services/local-storage.service';
 import { AuthConstants } from '../auth-constants'
 
 @Injectable({
@@ -11,7 +11,7 @@ import { AuthConstants } from '../auth-constants'
 export class AuthService {
   constructor(
     private httpService: HttpService,
-    private storageService: StorageService,
+    private localStorageService: LocalStorageService,
     private router: Router
   ) { }
 
@@ -24,8 +24,7 @@ export class AuthService {
   }
 
   logout() {
-    this.storageService.removeStorageItem(AuthConstants.AUTH).then(res => {
-      this.router.navigate(['/login']);
-    });
+    this.localStorageService.removeStorageItem(AuthConstants.AUTH)
+    this.router.navigate(['/login']);
   }
 }

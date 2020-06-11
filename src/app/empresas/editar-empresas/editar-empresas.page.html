@@ -1,12 +1,16 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
     <ion-title>Editar Empresa</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
-  <form [formGroup]="formEditarEmpresa" (ngSubmit)="editar_empresa()">
+  <form [formGroup]="formEditarEmpresa" (ngSubmit)="editarEmpresa()">
+
     <ion-item lines="full">
       <ion-label position="floating">Descripcion</ion-label>
       <ion-input formControlName="descripcion" type="text" required></ion-input>
@@ -28,14 +32,18 @@
     </ion-item>
 
     <ion-item lines="full">
-      <ion-label position="floating">Clasificacion de Empresa</ion-label>
-      <ion-select formControlName="cod_clasificacion_empresa" required></ion-select>
+      <ion-label position="stacked">Clasificacion de Empresa</ion-label>
+      <ion-select formControlName="id_clasificacion_empresa" [(ngModel)]="selectedIdCategoria" ok-text="Seleccionar" cancel-text="Cancelar">
+        <ion-select-option [value]="clasificacion.id_clasificacion_empresa" *ngFor="let clasificacion of clasificacionEmpresas$">{{clasificacion.descripcion}}</ion-select-option>
+      </ion-select>
     </ion-item>
+
     <ion-row>
       <ion-col>
-        <ion-button type="submit" [disabled]="!formEditar.valid" color="danger" expand="block">Editar</ion-button>
+        <ion-button type="submit" color="danger" expand="block">Editar</ion-button>
       </ion-col>
     </ion-row>
+
   </form>
 
 </ion-content>

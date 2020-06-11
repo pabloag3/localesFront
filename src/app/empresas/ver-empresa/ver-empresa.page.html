@@ -1,35 +1,39 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
     <ion-title>Ver Empresa</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
-  <form [formGroup]="formVerEmpresa" (ngSubmit)="registrar_empresa()">
+  <form [formGroup]="formVerEmpresa">
+
     <ion-item lines="full">
       <ion-label position="floating">Descripcion</ion-label>
-      <ion-input formControlName="descripcion" type="text" required></ion-input>
+      <ion-input formControlName="descripcion" type="text" readonly></ion-input>
     </ion-item>
 
     <ion-item lines="full">
       <ion-label position="floating">Direccion</ion-label>
-      <ion-input formControlName="direccion" type="text" required></ion-input>
+      <ion-input formControlName="direccion" type="text" readonly></ion-input>
     </ion-item>
 
     <ion-item lines="full">
       <ion-label position="floating">Longitud</ion-label>
-      <ion-input formControlName="longitud" type="text" required></ion-input>
+      <ion-input formControlName="longitud" type="text" readonly></ion-input>
     </ion-item>
 
     <ion-item lines="full">
       <ion-label position="floating">Latitud</ion-label>
-      <ion-input formControlName="latitud" type="text" required></ion-input>
+      <ion-input formControlName="latitud" type="text" readonly></ion-input>
     </ion-item>
 
     <ion-item lines="full">
       <ion-label position="floating">Clasificacion de Empresa</ion-label>
-      <ion-select formControlName="cod_clasificacion_empresa" required></ion-select>
+      <ion-input formControlName="clasificacion_empresa" type="text" readonly></ion-input>
     </ion-item>
 
   </form>
