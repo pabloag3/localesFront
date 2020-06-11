@@ -12,7 +12,7 @@ export class LocalStorageService {
 
   // Store the value
   store(storageKey: string, value: any) {
-    const encryptedValue = btoa(value);
+    const encryptedValue = value;
     this.storage.set(
       storageKey,
       encryptedValue
@@ -21,7 +21,7 @@ export class LocalStorageService {
 
   // Get the value
   get(storageKey: string) {
-    const ret = this.storage.get(atob(storageKey));
+    const ret = this.storage.get(storageKey);
     return ret;
   }
 
