@@ -58,4 +58,18 @@ export class HttpService {
     return this.http.put(url, JSON.stringify(data), options);
   }
 
+  delete(serviceName: string) {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    let authorizationToken = this.localStorageService.get(AuthConstants.AUTH);
+
+    if (authorizationToken !== null) {
+      headers = headers.append('Authorization', 'Token ' + authorizationToken);
+    }
+
+    const options = { headers: headers };
+    const url = environment.apiUrl + serviceName;
+    return this.http.delete(url, options);
+  }
+
 }
