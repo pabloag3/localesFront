@@ -13,6 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { VerEmpresaResolve } from './empresas/ver-empresa/ver-empresa.resolve';
 import { EditarEmpresaResolve } from './empresas/editar-empresas/editar-empresas.resolve';
 import { ListarEmpresasResolve } from './empresas/listar-empresas/listar-empresas.resolve'
+import { VerMedidasDeEmpresaResolve } from './empresas/ver-medidas-de-empresa/ver-medidas-de-empresa.resolve'
 
 import { StorageServiceModule } from 'ngx-webstorage-service';
 
@@ -26,6 +27,7 @@ import { StorageServiceModule } from 'ngx-webstorage-service';
     VerEmpresaResolve,
     EditarEmpresaResolve,
     ListarEmpresasResolve,
+    VerMedidasDeEmpresaResolve,
     StorageServiceModule,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

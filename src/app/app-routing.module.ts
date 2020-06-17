@@ -3,6 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { EditarEmpresaResolve } from './empresas/editar-empresas/editar-empresas.resolve';
 import { VerEmpresaResolve } from './empresas/ver-empresa/ver-empresa.resolve';
 import { ListarEmpresasResolve } from './empresas/listar-empresas/listar-empresas.resolve'
+import { VerMedidasDeEmpresaResolve } from './empresas/ver-medidas-de-empresa/ver-medidas-de-empresa.resolve'
 
 const routes: Routes = [
   {
@@ -59,7 +60,13 @@ const routes: Routes = [
     path: 'editar-medidas',
     loadChildren: () => import('./empresas/editar-medidas/editar-medidas.module').then( m => m.EditarMedidasPageModule)
   },
-
+  {
+    path: 'ver-medidas-de-empresa/:dataId',
+    loadChildren: () => import('./empresas/ver-medidas-de-empresa/ver-medidas-de-empresa.module').then( m => m.VerMedidasDeEmpresaPageModule),
+    resolve: {
+      medidasDeEmpresa: VerMedidasDeEmpresaResolve
+    }
+  },
 ];
 
 @NgModule({

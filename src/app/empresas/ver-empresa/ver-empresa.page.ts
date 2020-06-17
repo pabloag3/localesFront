@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { EmpresasService } from '../../services/empresas.service'
 import { Empresa } from '../../models/Empresa';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-ver-empresa',
@@ -17,8 +18,8 @@ export class VerEmpresaPage implements OnInit {
 
   constructor(
     public formBuilder: FormBuilder,
-    private empresasService: EmpresasService,
     public activatedRoute: ActivatedRoute,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -28,6 +29,7 @@ export class VerEmpresaPage implements OnInit {
     this.getDatosEmpresa();
 
     this.formVerEmpresa = this.formBuilder.group({
+      id_empresa: new FormControl(''),
       descripcion: new FormControl(''),
       direccion: new FormControl(''),
       longitud: new FormControl(''),
@@ -40,14 +42,11 @@ export class VerEmpresaPage implements OnInit {
   }
 
   private getDatosEmpresa() {
-
     this.activatedRoute.data.subscribe(
       (data: any) => {
         this.empresaDatos = data.empresa;
-        console.log(this.empresaDatos);
       }
     )
-
   }
 
   private preCompletarFormulario() {
@@ -57,5 +56,9 @@ export class VerEmpresaPage implements OnInit {
     this.formVerEmpresa.get('latitud').setValue(this.empresaDatos.latitud);
     this.formVerEmpresa.get('latitud').setValue(this.empresaDatos.latitud);
     this.formVerEmpresa.get('clasificacion_empresa').setValue(this.empresaDatos.clasificacion_empresa);
+  }
+
+  private verMedidasDeEmpresa() {
+    this.router.navigate(['ver-medidas-de-empresa/' + this.empresaDatos.id_empresa]);
   }
 }

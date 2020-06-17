@@ -14,7 +14,6 @@ export class ListarEmpresasPage implements OnInit {
   private listaEmpresas$: Empresa[];
 
   constructor(
-    private empresasService: EmpresasService,
     public activatedRoute: ActivatedRoute,
     private router: Router,
   ) { }
