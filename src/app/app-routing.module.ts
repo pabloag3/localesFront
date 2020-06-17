@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { EditarEmpresaResolve } from './empresas/editar-empresas/editar-empresas.resolve';
 import { VerEmpresaResolve } from './empresas/ver-empresa/ver-empresa.resolve';
+import { ListarEmpresasResolve } from './empresas/listar-empresas/listar-empresas.resolve'
 
 const routes: Routes = [
   {
@@ -38,7 +39,10 @@ const routes: Routes = [
   },
   {
     path: 'listar-empresas',
-    loadChildren: () => import('./empresas/listar-empresas/listar-empresas.module').then( m => m.ListarEmpresasPageModule)
+    loadChildren: () => import('./empresas/listar-empresas/listar-empresas.module').then( m => m.ListarEmpresasPageModule),
+    resolve: {
+      empresas: ListarEmpresasResolve
+    }
   },
   {
     path: 'ver-empresa/:dataId',

@@ -34,7 +34,7 @@ export class RegistrationPage implements OnInit {
     let datos = {
       "first_name": this.formRegistrar.get('first_name').value,
       "last_name": this.formRegistrar.get('last_name').value,
-      "email": this.formRegistrar.get('email').value,
+      "email": this.formRegistrar.get('email').value.toLowerCase(),
       "password": this.formRegistrar.get('password').value
     }
 

@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router';
 import { ClasificacionEmpresasService } from '../../services/clasificacion-empresas.service';
 import { ClasificacionEmpresa } from '../../models/ClasificacionEmpresa';
-import { EmpresasService } from '../../services/empresas.service'
+import { EmpresasService } from '../../services/empresas.service';
 import { Empresa } from '../../models/Empresa';
 
 @Component({

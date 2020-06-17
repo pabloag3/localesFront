@@ -1,12 +1,11 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>listar-empresas</ion-title>
+    <ion-title>Lista de empresas</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-item *ngFor="let empresa of empresas">
-    <h2>{{ empresa.descripcion | uppercase }}</h2>
-    <p>{{ empresa.direccion }}</p>
+  <ion-item *ngFor="let empresa of listaEmpresas$" (click)="redirectToVerEmpresa(empresa)" detail="true">
+    <p>{{ empresa.descripcion }}<br>{{ empresa.direccion }}</p>
   </ion-item>
 </ion-content>
