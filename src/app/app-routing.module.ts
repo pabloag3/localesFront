@@ -2,8 +2,9 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { EditarEmpresaResolve } from './empresas/editar-empresas/editar-empresas.resolve';
 import { VerEmpresaResolve } from './empresas/ver-empresa/ver-empresa.resolve';
-import { ListarEmpresasResolve } from './empresas/listar-empresas/listar-empresas.resolve'
-import { VerMedidasDeEmpresaResolve } from './empresas/ver-medidas-de-empresa/ver-medidas-de-empresa.resolve'
+import { ListarEmpresasResolve } from './empresas/listar-empresas/listar-empresas.resolve';
+import { VerMedidasDeEmpresaResolve } from './empresas/ver-medidas-de-empresa/ver-medidas-de-empresa.resolve';
+import { RegistrarMedidasResolve } from './empresas/registrar-medidas/registrar-medidas.resolve';
 
 const routes: Routes = [
   {
@@ -54,7 +55,10 @@ const routes: Routes = [
   },
   {
     path: 'registrar-medidas',
-    loadChildren: () => import('./empresas/registrar-medidas/registrar-medidas.module').then( m => m.RegistrarMedidasPageModule)
+    loadChildren: () => import('./empresas/registrar-medidas/registrar-medidas.module').then( m => m.RegistrarMedidasPageModule),
+    resolve: {
+      medidas: RegistrarMedidasResolve
+    }
   },
   {
     path: 'editar-medidas',

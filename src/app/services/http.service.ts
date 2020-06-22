@@ -16,7 +16,7 @@ export class HttpService {
     private localStorageService: LocalStorageService,
   ) { }
 
-  post(serviceName: string, data: any) {
+  post<T>(serviceName: string, data: any) {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     let authorizationToken = this.localStorageService.get(AuthConstants.AUTH);
@@ -27,10 +27,10 @@ export class HttpService {
 
     const options = { headers: headers };
     const url = environment.apiUrl + serviceName;
-    return this.http.post(url, JSON.stringify(data), options);
+    return this.http.post<T>(url, JSON.stringify(data), options);
   }
 
-  get(serviceName: string) {
+  get<T>(serviceName: string) {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     let authorizationToken = this.localStorageService.get(AuthConstants.AUTH);
@@ -41,7 +41,7 @@ export class HttpService {
 
     const options = { headers: headers };
     const url = environment.apiUrl + serviceName;
-    return this.http.get(url, options);
+    return this.http.get<T>(url, options);
   }
 
   put(serviceName: string, data: any) {

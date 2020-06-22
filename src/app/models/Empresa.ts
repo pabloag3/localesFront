@@ -1,7 +1,6 @@
 export class Empresa{
     
     id_empresa: number;
-    // user_profile: number;
     descripcion: string;
     direccion: string;
     longitud: string;
