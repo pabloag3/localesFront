@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService } from './http.service';
+import { ClasificacionEmpresa } from '../models/ClasificacionEmpresa';
 
 @Injectable({
   providedIn: 'root'
@@ -11,12 +12,12 @@ export class ClasificacionEmpresasService {
     private httpService: HttpService,
   ) { }
 
-  listarClasificacionEmpresas(): Observable<any> {
-    return this.httpService.get('clasificacionEmpresas/');
+  listarClasificacionEmpresas(): Observable<ClasificacionEmpresa> {
+    return this.httpService.get<ClasificacionEmpresa>('clasificacionEmpresas/');
   }
 
-  traerClasificacionEmpresa(id): Observable<any> {
-    return this.httpService.get('clasificacionEmpresas/' + id + '/');
+  traerClasificacionEmpresa(id): Observable<ClasificacionEmpresa> {
+    return this.httpService.get<ClasificacionEmpresa>('clasificacionEmpresas/' + id + '/');
   }
 
 }

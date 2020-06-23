@@ -3,8 +3,13 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router';
 import { ClasificacionEmpresasService } from '../../services/clasificacion-empresas.service';
 import { ClasificacionEmpresa } from '../../models/ClasificacionEmpresa';
-import { EmpresasService } from '../../services/empresas.service'
+import { EmpresasService } from '../../services/empresas.service';
 import { Empresa } from '../../models/Empresa';
+import { Router } from '@angular/router';
+import { LocalStorageService } from '../../services/local-storage.service';
+import { EmpresasMedidasService } from 'src/app/services/empresas-medidas.service';
+import { EmpresasMedidas } from 'src/app/models/EmpresasMedidas';
+import { MedidaSanitaria } from 'src/app/models/MedidaSanitaria';
 
 @Component({
   selector: 'app-editar-empresas',
@@ -16,14 +21,19 @@ export class EditarEmpresasPage implements OnInit {
   formEditarEmpresa: FormGroup;
   public clasificacionEmpresas$: ClasificacionEmpresa[];
   private empresaDatos: Empresa;
+  private medidasSanitariasDeEmpresa$: EmpresasMedidas[];
+  private idRestauranteAux: number;
   private selectedIdCategoria;
-  private dataId;
+  private medidasSanitariasAux: MedidaSanitaria[];
 
   constructor(
     public formBuilder: FormBuilder,
     private clasificacionEmpresasService: ClasificacionEmpresasService,
     private empresasService: EmpresasService,
     public activatedRoute: ActivatedRoute,
+    private router: Router,
+    private localStorageService: LocalStorageService,
+    private empresasMedidasService: EmpresasMedidasService,
   ) { }
 
   ngOnInit() {
@@ -37,13 +47,12 @@ export class EditarEmpresasPage implements OnInit {
       id_clasificacion_empresa: new FormControl(),
     })
 
-    this.dataId = this.activatedRoute.snapshot.paramMap.get('dataId');
     
     this.getDatosEmpresa();
     
   }
 
-  editarEmpresa(dataId) {
+  editarEmpresa() {
 
     let datos = {
       "id_empresa": this.formEditarEmpresa.get('id_empresa').value,
@@ -56,12 +65,58 @@ export class EditarEmpresasPage implements OnInit {
 
     this.empresasService.editarEmpresa(datos).subscribe(
       (data) => {
-        console.log("Se ha editado la empresa con exito");
+        this.idRestauranteAux = data.id_empresa;
+
+        this.eliminarMedidasSanitariasExistentes();
+
+        this.registrarMedidasSanitarias();
       },
       (error) => {
         console.log(error);
       }
     );
+
+  }
+
+  eliminarMedidasSanitariasExistentes() {
+    this.medidasSanitariasDeEmpresa$ = this.localStorageService.get('medidasSanitariasDeEmpresa');
+
+    // elimina las medidas sanitarias existentes de la empresa
+    this.medidasSanitariasDeEmpresa$.forEach(element => {
+      this.empresasMedidasService.eliminarEmpresaMedidaSanitaria(element.cod_empresa_medida).subscribe(
+        (data) => {
+          console.log("medidas iniciales eliminadas");
+        },
+        (error) => {
+          console.log(error);
+        }
+      )
+    });
+  }
+
+  registrarMedidasSanitarias() {
+    this.medidasSanitariasAux = this.localStorageService.get('medidasSanitariasSeleccionadasEdicion');
+    console.log(this.medidasSanitariasAux);
+
+    this.medidasSanitariasAux.forEach(medidaSanitaria => {
+
+      this.empresasMedidasService.registrarEmpresaMedidaSanitaria(
+        {
+          "id_medida_sanitaria": medidaSanitaria.id_medida_sanitaria,
+          "id_empresa": this.idRestauranteAux
+        }
+      ).subscribe(
+        (data) => {
+          console.log(data);
+          // eliminar datos auxiliares temporales de localStorage
+          this.localStorageService.removeStorageItem('medidasSanitariasSeleccionadasRegistro');
+        },
+        (error) => {
+          console.log(error)
+        }
+      );
+      
+    });
 
   }
 
@@ -96,7 +151,10 @@ export class EditarEmpresasPage implements OnInit {
     this.formEditarEmpresa.get('latitud').setValue(this.empresaDatos.latitud);
     this.formEditarEmpresa.get('latitud').setValue(this.empresaDatos.latitud);
     this.selectedIdCategoria = this.empresaDatos.id_clasificacion_empresa;
-    // this.formEditarEmpresa.patchValue({id_clasificacion_empresa: this.selectedIdCategoria});
+  }
+
+  private verMedidasDeEmpresa() {
+    this.router.navigate(['editar-medidas/' + this.empresaDatos.id_empresa]);
   }
 
 }

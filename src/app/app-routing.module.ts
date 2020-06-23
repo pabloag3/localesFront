@@ -2,6 +2,10 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { EditarEmpresaResolve } from './empresas/editar-empresas/editar-empresas.resolve';
 import { VerEmpresaResolve } from './empresas/ver-empresa/ver-empresa.resolve';
+import { ListarEmpresasResolve } from './empresas/listar-empresas/listar-empresas.resolve';
+import { VerMedidasDeEmpresaResolve } from './empresas/ver-medidas-de-empresa/ver-medidas-de-empresa.resolve';
+import { RegistrarMedidasResolve } from './empresas/registrar-medidas/registrar-medidas.resolve';
+import { EditarMedidasResolve } from './empresas/editar-medidas/editar-medidas.resolve';
 
 const routes: Routes = [
   {
@@ -38,7 +42,10 @@ const routes: Routes = [
   },
   {
     path: 'listar-empresas',
-    loadChildren: () => import('./empresas/listar-empresas/listar-empresas.module').then( m => m.ListarEmpresasPageModule)
+    loadChildren: () => import('./empresas/listar-empresas/listar-empresas.module').then( m => m.ListarEmpresasPageModule),
+    resolve: {
+      empresas: ListarEmpresasResolve
+    }
   },
   {
     path: 'ver-empresa/:dataId',
@@ -49,13 +56,26 @@ const routes: Routes = [
   },
   {
     path: 'registrar-medidas',
-    loadChildren: () => import('./empresas/registrar-medidas/registrar-medidas.module').then( m => m.RegistrarMedidasPageModule)
+    loadChildren: () => import('./empresas/registrar-medidas/registrar-medidas.module').then( m => m.RegistrarMedidasPageModule),
+    resolve: {
+      medidas: RegistrarMedidasResolve
+    }
   },
   {
-    path: 'editar-medidas',
-    loadChildren: () => import('./empresas/editar-medidas/editar-medidas.module').then( m => m.EditarMedidasPageModule)
+    path: 'editar-medidas/:dataId',
+    loadChildren: () => import('./empresas/editar-medidas/editar-medidas.module').then( m => m.EditarMedidasPageModule),
+    resolve: {
+      medidasDeEmpresa: EditarMedidasResolve,
+      medidas: RegistrarMedidasResolve
+    }
   },
-
+  {
+    path: 'ver-medidas-de-empresa/:dataId',
+    loadChildren: () => import('./empresas/ver-medidas-de-empresa/ver-medidas-de-empresa.module').then( m => m.VerMedidasDeEmpresaPageModule),
+    resolve: {
+      medidasDeEmpresa: VerMedidasDeEmpresaResolve
+    }
+  },
 ];
 
 @NgModule({

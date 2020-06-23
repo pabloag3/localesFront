@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
 import { Observable } from 'rxjs';
+import { MedidaSanitaria } from '../models/MedidaSanitaria';
+import { EmpresasMedidas } from '../models/EmpresasMedidas';
 
 @Injectable({
   providedIn: 'root'
@@ -11,19 +13,19 @@ export class EmpresasMedidasService {
     private httpService: HttpService,
   ) { }
 
-  listarMedidas(): Observable<any> {
-    return this.httpService.get('empresaMedidas/');
+  listarMedidas(): Observable<MedidaSanitaria> {
+    return this.httpService.get<MedidaSanitaria>('medidasSanitarias/');
   }
 
-  traerMedidasDeEmpresa(id: number): Observable<any> {
-    return this.httpService.get('empresaMedidas/?search=' + id);
+  traerMedidasDeEmpresa(id: number): Observable<EmpresasMedidas> {
+    return this.httpService.get<EmpresasMedidas>('empresaMedidas/?search=' + id);
   }
 
-  registrarMedidaSanitaria(postData: any): Observable<any> {
+  registrarEmpresaMedidaSanitaria(postData: any): Observable<any> {
     return this.httpService.post('empresaMedidas/', postData);
   }
 
-  eliminarMedidaSanitaria(deleteDataId: number): Observable<any> {
+  eliminarEmpresaMedidaSanitaria(deleteDataId: number): Observable<any> {
     return this.httpService.delete('empresaMedidas/' + deleteDataId + '/');
   }
 
