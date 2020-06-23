@@ -1,9 +1,22 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>editar-medidas</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Editar Medidas</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-list>
+    <ion-item *ngFor="let medidaSanitaria of listaMedidasSanitarias$">
+      <ion-label>{{ medidaSanitaria.descripcion }}</ion-label>
+      <ion-checkbox slot="start" [(ngModel)]="medidaSanitaria.isChecked" (ionChange)="selectMedida(medidaSanitaria)"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+  <ion-row>
+    <ion-col>
+      <ion-button (click)="guardarMedidasEnLocalStorage()" color="danger" expand="block">Guardar medidas</ion-button>
+    </ion-col>
+  </ion-row>
 </ion-content>

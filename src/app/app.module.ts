@@ -15,6 +15,7 @@ import { EditarEmpresaResolve } from './empresas/editar-empresas/editar-empresas
 import { ListarEmpresasResolve } from './empresas/listar-empresas/listar-empresas.resolve'
 import { VerMedidasDeEmpresaResolve } from './empresas/ver-medidas-de-empresa/ver-medidas-de-empresa.resolve'
 import { RegistrarMedidasResolve } from './empresas/registrar-medidas/registrar-medidas.resolve';
+import { EditarMedidasResolve } from './empresas/editar-medidas/editar-medidas.resolve';
 
 import { StorageServiceModule } from 'ngx-webstorage-service';
 
@@ -30,6 +31,7 @@ import { StorageServiceModule } from 'ngx-webstorage-service';
     ListarEmpresasResolve,
     VerMedidasDeEmpresaResolve,
     RegistrarMedidasResolve,
+    EditarMedidasResolve,
     StorageServiceModule,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

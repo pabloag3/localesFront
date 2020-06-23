@@ -5,6 +5,7 @@ import { VerEmpresaResolve } from './empresas/ver-empresa/ver-empresa.resolve';
 import { ListarEmpresasResolve } from './empresas/listar-empresas/listar-empresas.resolve';
 import { VerMedidasDeEmpresaResolve } from './empresas/ver-medidas-de-empresa/ver-medidas-de-empresa.resolve';
 import { RegistrarMedidasResolve } from './empresas/registrar-medidas/registrar-medidas.resolve';
+import { EditarMedidasResolve } from './empresas/editar-medidas/editar-medidas.resolve';
 
 const routes: Routes = [
   {
@@ -61,8 +62,12 @@ const routes: Routes = [
     }
   },
   {
-    path: 'editar-medidas',
-    loadChildren: () => import('./empresas/editar-medidas/editar-medidas.module').then( m => m.EditarMedidasPageModule)
+    path: 'editar-medidas/:dataId',
+    loadChildren: () => import('./empresas/editar-medidas/editar-medidas.module').then( m => m.EditarMedidasPageModule),
+    resolve: {
+      medidasDeEmpresa: EditarMedidasResolve,
+      medidas: RegistrarMedidasResolve
+    }
   },
   {
     path: 'ver-medidas-de-empresa/:dataId',
