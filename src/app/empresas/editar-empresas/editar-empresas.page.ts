@@ -10,6 +10,7 @@ import { LocalStorageService } from '../../services/local-storage.service';
 import { EmpresasMedidasService } from 'src/app/services/empresas-medidas.service';
 import { EmpresasMedidas } from 'src/app/models/EmpresasMedidas';
 import { MedidaSanitaria } from 'src/app/models/MedidaSanitaria';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 @Component({
   selector: 'app-editar-empresas',
@@ -34,6 +35,7 @@ export class EditarEmpresasPage implements OnInit {
     private router: Router,
     private localStorageService: LocalStorageService,
     private empresasMedidasService: EmpresasMedidasService,
+    private geolocation: Geolocation,
   ) { }
 
   ngOnInit() {
@@ -42,14 +44,14 @@ export class EditarEmpresasPage implements OnInit {
       id_empresa: new FormControl(''),
       descripcion: new FormControl('', [Validators.required, Validators.pattern('[/a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]{1,50}$')]), //solo letras y numeros
       direccion: new FormControl('', [Validators.required, Validators.pattern('[/a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]{1,300}$')]), //solo letras y numeros
-      longitud: new FormControl('', [Validators.required]),
-      latitud: new FormControl('', [Validators.required]),
+      longitud: new FormControl(''),
+      latitud: new FormControl(''),
       id_clasificacion_empresa: new FormControl(),
     })
 
-    
+
     this.getDatosEmpresa();
-    
+
   }
 
   editarEmpresa() {
@@ -96,27 +98,41 @@ export class EditarEmpresasPage implements OnInit {
 
   registrarMedidasSanitarias() {
     this.medidasSanitariasAux = this.localStorageService.get('medidasSanitariasSeleccionadasEdicion');
-    console.log(this.medidasSanitariasAux);
 
-    this.medidasSanitariasAux.forEach(medidaSanitaria => {
+    if (this.medidasSanitariasAux !== undefined) {
 
-      this.empresasMedidasService.registrarEmpresaMedidaSanitaria(
-        {
-          "id_medida_sanitaria": medidaSanitaria.id_medida_sanitaria,
-          "id_empresa": this.idRestauranteAux
-        }
-      ).subscribe(
-        (data) => {
-          console.log(data);
-          // eliminar datos auxiliares temporales de localStorage
-          this.localStorageService.removeStorageItem('medidasSanitariasSeleccionadasRegistro');
-        },
-        (error) => {
-          console.log(error)
-        }
-      );
-      
-    });
+      this.medidasSanitariasAux.forEach(medidaSanitaria => {
+
+        this.empresasMedidasService.registrarEmpresaMedidaSanitaria(
+          {
+            "id_medida_sanitaria": medidaSanitaria.id_medida_sanitaria,
+            "id_empresa": this.idRestauranteAux
+          }
+        ).subscribe(
+          (data) => {
+            console.log(data);
+            // eliminar datos auxiliares temporales de localStorage
+            this.localStorageService.removeStorageItem('medidasSanitariasSeleccionadasRegistro');
+          },
+          (error) => {
+            console.log(error)
+          }
+        );
+        
+      });
+
+    }
+
+  }
+  
+  private getDatosEmpresa() {
+
+    this.activatedRoute.data.subscribe(
+      (data: any) => {
+        this.empresaDatos = data.empresa;
+        this.getAllClasificacionEmpresas();
+      }
+    )
 
   }
 
@@ -132,17 +148,6 @@ export class EditarEmpresasPage implements OnInit {
     );
   }
 
-  private getDatosEmpresa() {
-
-    this.activatedRoute.data.subscribe(
-      (data: any) => {
-        this.empresaDatos = data.empresa;
-        this.getAllClasificacionEmpresas();
-      }
-    )
-
-  }
-
   private preCompletarFormulario() {
     this.formEditarEmpresa.get('id_empresa').setValue(this.empresaDatos.id_empresa);
     this.formEditarEmpresa.get('descripcion').setValue(this.empresaDatos.descripcion);
@@ -155,6 +160,15 @@ export class EditarEmpresasPage implements OnInit {
 
   private verMedidasDeEmpresa() {
     this.router.navigate(['editar-medidas/' + this.empresaDatos.id_empresa]);
+  }
+  
+  private obtenerUbicacion() {
+    this.geolocation.getCurrentPosition().then((resp) => {
+      this.formEditarEmpresa.get('latitud').setValue(resp.coords.latitude);
+      this.formEditarEmpresa.get('longitud').setValue(resp.coords.longitude);
+    }).catch((error) => {
+      console.log('Error getting location', error);
+    });
   }
 
 }

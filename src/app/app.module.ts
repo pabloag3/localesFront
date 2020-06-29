@@ -19,6 +19,8 @@ import { EditarMedidasResolve } from './empresas/editar-medidas/editar-medidas.r
 
 import { StorageServiceModule } from 'ngx-webstorage-service';
 
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -33,6 +35,7 @@ import { StorageServiceModule } from 'ngx-webstorage-service';
     RegistrarMedidasResolve,
     EditarMedidasResolve,
     StorageServiceModule,
+    Geolocation,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

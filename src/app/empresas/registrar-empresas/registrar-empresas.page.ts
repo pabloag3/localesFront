@@ -6,6 +6,7 @@ import { EmpresasService } from '../../services/empresas.service'
 import { MedidaSanitaria } from 'src/app/models/MedidaSanitaria';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { EmpresasMedidasService } from 'src/app/services/empresas-medidas.service';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 @Component({
   selector: 'app-registrar-empresas',
@@ -25,6 +26,7 @@ export class RegistrarEmpresasPage implements OnInit {
     private empresasService: EmpresasService,
     private localStorageService: LocalStorageService,
     private empresasMedidasService: EmpresasMedidasService,
+    private geolocation: Geolocation,
   ) { }
 
   ngOnInit() {
@@ -32,12 +34,13 @@ export class RegistrarEmpresasPage implements OnInit {
     this.formRegistrarEmpresa = this.formBuilder.group({
       descripcion: new FormControl('', [Validators.required, Validators.pattern('[/a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]{1,50}$')]), //solo letras y numeros
       direccion: new FormControl('', [Validators.required, Validators.pattern('[/a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]{1,300}$')]), //solo letras y numeros
-      longitud: new FormControl('', [Validators.required]),
-      latitud: new FormControl('', [Validators.required]),
+      longitud: new FormControl(''),
+      latitud: new FormControl(''),
       id_clasificacion_empresa: new FormControl('0', [Validators.required])
-    })
+    });
 
     this.getAllClasificacionEmpresas();
+
 
   }
 
@@ -65,25 +68,29 @@ export class RegistrarEmpresasPage implements OnInit {
   registrarMedidasSanitarias() {
     this.medidasSanitariasAux = this.localStorageService.get('medidasSanitariasSeleccionadasRegistro');
 
-    this.medidasSanitariasAux.forEach(medidaSanitaria => {
+    if (this.medidasSanitariasAux !== undefined) {
 
-      this.empresasMedidasService.registrarEmpresaMedidaSanitaria(
-        {
-          "id_medida_sanitaria": medidaSanitaria.id_medida_sanitaria,
-          "id_empresa": this.idRestauranteAux
-        }
-      ).subscribe(
-        (data) => {
-          console.log(data);
-          // eliminar datos auxiliares temporales de localStorage
-          this.localStorageService.removeStorageItem('medidasSanitariasSeleccionadasRegistro');
-        },
-        (error) => {
-          console.log(error)
-        }
-      );
-      
-    });
+      this.medidasSanitariasAux.forEach(medidaSanitaria => {
+
+        this.empresasMedidasService.registrarEmpresaMedidaSanitaria(
+          {
+            "id_medida_sanitaria": medidaSanitaria.id_medida_sanitaria,
+            "id_empresa": this.idRestauranteAux
+          }
+        ).subscribe(
+          (data) => {
+            console.log(data);
+            // eliminar datos auxiliares temporales de localStorage
+            this.localStorageService.removeStorageItem('medidasSanitariasSeleccionadasRegistro');
+          },
+          (error) => {
+            console.log(error)
+          }
+        );
+
+      });
+
+    }
 
   }
 
@@ -92,10 +99,19 @@ export class RegistrarEmpresasPage implements OnInit {
       (data: any) => {
         this.clasificacionEmpresas$ = data;
       },
-      (error:any) => {
+      (error: any) => {
         console.log(error.message);
       }
     );
+  }
+
+  private obtenerUbicacion() {
+    this.geolocation.getCurrentPosition().then((resp) => {
+      this.formRegistrarEmpresa.get('latitud').setValue(resp.coords.latitude);
+      this.formRegistrarEmpresa.get('longitud').setValue(resp.coords.longitude);
+    }).catch((error) => {
+      console.log('Error getting location', error);
+    });
   }
 
 }

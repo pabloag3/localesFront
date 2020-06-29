@@ -19,12 +19,12 @@
 
     <ion-item lines="full">
       <ion-label position="floating">Longitud</ion-label>
-      <ion-input formControlName="longitud" type="text" required></ion-input>
+      <ion-input formControlName="longitud" type="text"></ion-input>
     </ion-item>
 
     <ion-item lines="full">
       <ion-label position="floating">Latitud</ion-label>
-      <ion-input formControlName="latitud" type="text" required></ion-input>
+      <ion-input formControlName="latitud" type="text"></ion-input>
     </ion-item>
 
     <ion-item lines="full">
@@ -34,7 +34,13 @@
       </ion-select>
     </ion-item>
 
-    <ion-button [routerLink]="['/registrar-medidas']" size="small" color="secondary">Registrar medidas sanitarias</ion-button>
+    <ion-button [routerLink]="['/registrar-medidas']" expand="block" size="small" color="secondary">Registrar medidas sanitarias</ion-button>
+    
+    <ion-row>
+      <ion-col>
+        <ion-button (click)="obtenerUbicacion()" expand="block" size="small" color="secondary" >Obtener ubicacion</ion-button>
+      </ion-col>
+    </ion-row>
 
     <ion-row>
       <ion-col>
