@@ -21,6 +21,8 @@ import { StorageServiceModule } from 'ngx-webstorage-service';
 
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 
+import { LaunchNavigator } from '@ionic-native/launch-navigator/ngx';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -36,6 +38,7 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
     EditarMedidasResolve,
     StorageServiceModule,
     Geolocation,
+    LaunchNavigator,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

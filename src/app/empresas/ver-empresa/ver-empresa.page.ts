@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { EmpresasService } from '../../services/empresas.service'
 import { Empresa } from '../../models/Empresa';
 import { Router } from '@angular/router';
+import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator/ngx';
 
 @Component({
   selector: 'app-ver-empresa',
@@ -20,6 +21,7 @@ export class VerEmpresaPage implements OnInit {
     public formBuilder: FormBuilder,
     public activatedRoute: ActivatedRoute,
     private router: Router,
+    private launchNavigator: LaunchNavigator,
   ) { }
 
   ngOnInit() {
@@ -61,4 +63,23 @@ export class VerEmpresaPage implements OnInit {
   private verMedidasDeEmpresa() {
     this.router.navigate(['ver-medidas-de-empresa/' + this.empresaDatos.id_empresa]);
   }
+
+  private abrirEnMapa() {
+
+    let coordenadas = [];
+    coordenadas.push(this.empresaDatos.latitud);
+    coordenadas.push(this.empresaDatos.longitud);
+    console.log(coordenadas);
+
+    let options: LaunchNavigatorOptions = {
+      app: this.launchNavigator.APP.GOOGLE_MAPS
+    }
+
+    this.launchNavigator.navigate(coordenadas, options)
+      .then(
+        success => console.log('Launched navigator'),
+        error => console.log('Error launching navigator', error)
+      );
+  }
+
 }
